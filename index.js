@@ -1,20 +1,9 @@
-import express from "express";
-import path from "path";
-const app = express();
-// app.get("/", (req, res) => {
-//   // res.json({
-//   //   success: true,
-//   //   products: [],
-//   // });
-//   // res.send("Hi");
-//   const pathlocation = path.resolve();
-//   res.sendFile(path.join(pathlocation, "./index.html"));
-// });
-express.static("./public");
-app.set("view engine", "ejs");
-app.get("/", (req, res)=>{
-  res.render("index", {name: "Dev"});
-})
-app.listen(5000, () => {
-  console.log(" Server is Working");
-});
+const http = require("http");
+const data = require("./data");
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "applicationjson" });
+    res.write(JSON.stringify(data));
+    res.end();
+  })
+  .listen(5000);
