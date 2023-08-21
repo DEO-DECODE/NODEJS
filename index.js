@@ -1,11 +1,12 @@
 const fs = require("fs");
-const input = process.argv;
-
-// console.log(process.argv[2]);
-if (input[2] == "add") {
-  fs.writeFileSync(input[2], input[3]);
-} else if (input[2] == "remove") {
-  fs.unlinkSync(input[3]);
-} else {
-  console.log("Invalid input");
+const path = require("path");
+const dirName = path.join(__dirname, "files");
+// console.log(dirName);
+for (i = 0; i < 5; ++i) {
+  fs.writeFileSync(dirName + `/hello${i}.txt`, "A simple Test File");
 }
+fs.readdir(dirName, (err, files) => {
+  files.forEach((item) => {
+    console.log("File name is ", item);
+  });
+});
