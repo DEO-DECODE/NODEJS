@@ -1,33 +1,24 @@
-const express = require("express");
-const path = require("path");
-
+const express = require('express');
 const app = express();
-const publicPath = path.join(__dirname, "public");
-app.set("view engine", "ejs");
-// app.use(express.static(publicPath));
-app.get("", (_, resp) => {
-  resp.sendFile(`${publicPath}/index.html`);
+const reqFilter = (req, resp, next) => {
+    if (!req.query.age) {
+        resp.send("Please provide your age")
+    }
+    else if (req.query.age<18) {
+        resp.send("You are under aged")
+    }
+    else {
+        next();
+    }
+}
+
+app.use(reqFilter);
+
+app.get('/', (res, resp) => {
+    resp.send('Welcome to Home page')
 });
 
-// app.get("/contact", (_, resp) => {
-//   resp.sendFile(`${publicPath}/about.html`);
-// });
-
-// app.get("/help", (_, resp) => {
-//   resp.sendFile(`${publicPath}/help.html`);
-// });
-
-// app.get("*", (_, resp) => {
-//   resp.sendFile(`${publicPath}/nopage.html`);
-// });
-
-app.get("/profile", (_, resp) => {
-  const user = {
-    name: "Dev Raj",
-    email: "d.jrajsingh81@gmail.com",
-    city: "Jamui",
-    skills: ["php", "js", "c++", "mySQL"],
-  };
-  resp.render("profile", { user });
+app.get('/users', (res, resp) => {
+    resp.send('Welcome to Users page')
 });
-app.listen(5000);
+app.listen(5000)
