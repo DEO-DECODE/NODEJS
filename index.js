@@ -26,7 +26,8 @@ app.get("/profile", (_, resp) => {
     name: "Dev Raj",
     email: "d.jrajsingh81@gmail.com",
     city: "Jamui",
+    skills: ["php", "js", "c++", "mySQL"],
   };
-  resp.render('profile', {user});
+  resp.render("profile", { user });
 });
 app.listen(5000);
