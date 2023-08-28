@@ -1,4 +1,4 @@
-const dbConnect= require('./mongodb');
+const dbConnect = require("./mongodb");
 // dbConnect().then((resp) => {
 //   resp
 //     .find({ name: "poco c3" })
