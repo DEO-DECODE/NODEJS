@@ -1,15 +1,13 @@
-const dbConnect = require("./mongodb");
-// dbConnect().then((resp) => {
-//   resp
-//     .find({ name: "poco c3" })
-//     .toArray()
-//     .then((data) => {
-//       console.warn(data);
-//     });
-// });
+const mongoose = require("mongoose");
 const main = async () => {
-  let data = await dbConnect();
-  data = await data.find({}).toArray();
-  console.log(data);
+  await mongoose.connect("mongodb://127.0.0.1/e-comm");
+  const productSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+  });
+  const productsModel = mongoose.model("products", productSchema);
+  let data = new productsModel({ name: "m 10", price: 1000 });
+  let result = await data.save();
+  console.log(result);
 };
 main();
